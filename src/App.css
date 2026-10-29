@@ -1,0 +1,41 @@
+
+/* P6B simulation status styles */
+
+.status-running {
+  color: #facc15;
+  font-weight: bold;
+}
+
+.status-success {
+  color: #4ade80;
+  font-weight: bold;
+}
+
+.status-failed {
+  color: #f87171;
+  font-weight: bold;
+}
+
+/* P6B simulation logs */
+
+.simulation-logs {
+  background: #111827;
+  color: #d1d5db;
+  border: 1px solid #374151;
+  border-radius: 6px;
+  padding: 14px;
+  margin-top: 12px;
+  font-family: Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.results-panel h3 {
+  font-size: 14px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
