@@ -1,7 +1,5 @@
 node_modules/
 dist/
 site/
-.firebase/
-firebase-debug.log
 *.log
 .DS_Store

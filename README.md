@@ -12,7 +12,6 @@ P6B/        P6B Run, Results & Waveforms – full subproject with tests and docs
   docs/     SDD, test documentation, RTM, change log, interface spec, deployment
 scripts/    build-site.sh – builds both apps into one deployable site
 .github/    CI – builds app/, tests and builds P6B/ on every push
-firebase.json  Firebase Hosting config
 ```
 
 ## Run locally
@@ -26,15 +25,11 @@ cd P6B && npm install && npm run dev
 npm test            # 94 unit/system/integration tests
 ```
 
-## Deploy (Firebase Hosting)
+## Build the site
 
 ```bash
-bash scripts/build-site.sh                      # outputs ./site
-npx firebase-tools login
-npx firebase-tools deploy --only hosting --project <PROJECT_ID>
+bash scripts/build-site.sh                      # outputs ./site (P6B at /P6B/)
 ```
-
-Site: `https://<PROJECT_ID>.web.app` (P6B at `/P6B/`).
 
 ## Subteams
 

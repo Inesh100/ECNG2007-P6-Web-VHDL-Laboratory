@@ -12,9 +12,9 @@ npx vite preview     # local check at http://localhost:4173
 
 `vite.config.ts` uses `base: './'`, so `dist/` works from any host or sub-path, including GitHub Pages project URLs.
 
-### Firebase Hosting (configured at repo root)
+### Combined site
 
-From the repository root, `bash scripts/build-site.sh` builds the combined site into `site/` (P6B at `/P6B/`), then `npx firebase-tools deploy --only hosting --project <PROJECT_ID>` publishes it. Settings are in the root `firebase.json`.
+From the repository root, `bash scripts/build-site.sh` builds the combined site into `site/` (P6B at `/P6B/`).
 
 ### Any other static host
 
