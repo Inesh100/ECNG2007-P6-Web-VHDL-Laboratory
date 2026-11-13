@@ -1,0 +1,7 @@
+Surfer - https://gitlab.com/surfer-project/surfer
+Copyright (c) the Surfer contributors.
+Licensed under the European Union Public Licence v1.2 (EUPL-1.2):
+https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+This directory contains the unmodified upstream browser build (surfer.js,
+surfer_bg.wasm, integration.js) from the project's pages_build CI artefact,
+with a P6B wrapper index.html.

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surfer (embedded)</title>
+  <!--
+    Self-hosted browser build of Surfer (https://surfer-project.org), EUPL-1.2.
+    Embedded by P6B as the waveform viewer (P6B-IR-04, P6B-DC-03).
+    Paths are relative so the viewer works under any deployment base path.
+  -->
+  <script type="module">
+    import init, { inject_message, waves_loaded } from './surfer.js';
+    window.inject_message = inject_message;
+    const notify = (msg) => {
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({ source: 'surfer', ...msg }, window.location.origin);
+      }
+    };
+    try {
+      await init({ module_or_path: './surfer_bg.wasm' });
+      window.__surferReady = true;
+      notify({ type: 'ready' });
+      // Report when the waveform passed via ?load_url= has been parsed.
+      const started = Date.now();
+      const poll = async () => {
+        if (await waves_loaded()) { window.__surferLoaded = true; notify({ type: 'loaded' }); return; }
+        if (Date.now() - started < 30000) setTimeout(poll, 200);
+      };
+      poll();
+    } catch (e) {
+      on_surfer_error(String(e));
+    }
+  </script>
+  <script>
+    function on_surfer_error(msg) {
+      document.getElementById('error_message').textContent = msg;
+      document.getElementById('error_container').style.display = 'block';
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({ source: 'surfer', type: 'error', message: String(msg) }, window.location.origin);
+      }
+    }
+    window.on_surfer_error = on_surfer_error;
+  </script>
+  <style>
+    html, body { overflow: hidden; margin: 0; padding: 0; height: 100%; width: 100%; background: #1b1d22; touch-action: manipulation; }
+    canvas { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
+    #error_container { display: none; padding: 1em; color: #fff; background: #000; font-family: system-ui, sans-serif; height: 100%; overflow: auto; box-sizing: border-box; }
+    #error_message { white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <canvas id="the_canvas_id"></canvas>
+  <div id="error_container">
+    <h2>Surfer could not start</h2>
+    <code id="error_message"></code>
+  </div>
+  <script src="./integration.js"></script>
+  <script>register_message_listener();</script>
+</body>
+</html>

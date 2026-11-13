@@ -1,0 +1,39 @@
+Stakeholder Requirement ID,Acceptance Criterion ID,SRS Requirement ID,Requirement summary,Design element,Test level,Test case ID,Result/status,Change Request ref
+P6-StR2.1,P6-AC2.1,P6B-FR-01,User-initiated Run submits current workspace state,SDD 5.3 useRunController; Simulate button / Run bar,System,SYS-TC-01; SYS-TC-09,Pass,
+ECO-StR3.1,ECO-AC3.1,P6B-FR-02,Job formatted per HDL Service Contract v1 and HDL Artefact Convention,SDD 5.3 runModel.buildJobRequest; contracts/hdlService,Unit; Integration,UT-RUN-01; IT-SVC-03,Pass,CR-P6B-01
+P6-StR4.1,P6-AC4.1,P6B-FR-03,Consume source state via shared workspace model,SDD 2.2 WorkspaceSource; SharedWorkspace; IF-P6-WS-01,Unit; Integration,UT-WS-02; IT-SEAM-01,Pass,
+P6-StR4.1,P6-AC4.1,P6B-FR-04,Submit received state without manual restructuring,runModel.buildJobRequest; IF-P6-WS-01 R2,Unit; Integration; System,UT-RUN-01; IT-SEAM-01; SYS-TC-13,Pass,
+P6-StR3.1,P6-AC3.1,P6B-FR-05 (run workflow),Run workflow operates against parent-project simulator and fixtures,SDD 5.5 simulator; EmbeddedTransport; simulator/server.ts,Integration; Unit,IT-SVC-01..05; UT-SIM-07,Pass,CR-P6B-03
+P6-StR2.1,P6-AC2.1,P6B-FR-05 (stage display),Display stage/status per contract,OutputPanel StageStrip + Banner; runModel.pipelineStates,System; Unit,SYS-TC-09; UT-RUN-03,Pass,CR-P6B-03
+P6-StR2.1,P6-AC2.1,P6B-FR-06,Analysis failure displayed as analysis,OutputPanel Banner; CATEGORY_LABEL,System; E2E,SYS-TC-02; SYS-TC-03; E2E-02,Pass,
+P6-StR2.1,P6-AC2.1,P6B-FR-07,Elaboration failure displayed as elaboration,OutputPanel Banner; CATEGORY_LABEL,System; E2E,SYS-TC-04; SYS-TC-05; E2E-02,Pass,
+P6-StR2.1,P6-AC2.1,P6B-FR-08,Simulation failure displayed as simulation,OutputPanel Banner; CATEGORY_LABEL,System; E2E,SYS-TC-06; E2E-02,Pass,
+P6-StR2.1,P6-AC2.1,P6B-FR-09,Service/runtime failure displayed as service/runtime,HdlServiceClient.serviceFailure; SDD 5.4,System; Unit; Integration; E2E,SYS-TC-07; SYS-TC-12; UT-CLI-03; IT-SVC-05; E2E-02,Pass,
+P6-StR2.1,P6-AC2.1,P6B-FR-10,Display returned result information on success,OutputPanel ResultsView,System,SYS-TC-01; SYS-TC-11,Pass,
+P6-StR2.1,P6-AC2.1,P6B-FR-11,Display logs for completed jobs,OutputPanel ConsoleView; ProblemsView,System,SYS-TC-10,Pass,
+P6-StR2.1,P6-AC2.1,P6B-FR-12,Make contract VCD available to Surfer,SurferViewer (blob URL); useRunController artefact download,System; E2E; Integration,SYS-TC-01; E2E-01; IT-SVC-04,Pass,
+P6-StR2.1,P6-AC2.1,P6B-FR-13,Display reference VCD in browser Surfer,SurferViewer + public/surfer (self-hosted WASM),E2E,E2E-01,Pass,
+P6-StR2.1,P6-AC2.1,P6B-FR-14,Disable waveform view when no VCD,runModel.hasWaveform; OutputPanel tabs disabled,System; Unit; E2E,SYS-TC-02..08; UT-RUN-04; E2E-02,Pass,CR-P6B-03
+P6-StR2.2,P6-AC2.2,P6B-FR-15,Accept approved launch context,launch.parseLaunchParam; validateLaunchContext,Unit; System,UT-LTR-01; UT-CON-02; SYS-TC-14,Pass,CR-P6B-01
+P6-StR2.2,P6-AC2.2,P6B-FR-16,Exchange completion/result per contract,launch.buildCompletionResult; postResult,Unit; System,UT-LTR-02; UT-LTR-03; SYS-TC-14,Pass,
+P6-StR2.2,P6-AC2.2,P6B-FR-17,Published launch/result examples complete with local harness,harness.html / harness/main.tsx; launch/examples.ts,E2E,E2E-03,Pass,CR-P6B-02
+P6-StR4.1,P6-AC4.1,P6B-FR-18,Run after edit submits same source state,SharedWorkspace; buildJobRequest; stale-results notice,Integration; System,IT-SEAM-01; SYS-TC-13,Pass,
+ECO-StR6.1,ECO-AC6.1,P6B-FR-19,Accept test-double workspace when P6A unavailable,FixtureWorkspace; hasSharedWorkspace fallback,Unit; System,UT-WS-01; UT-WS-02; SYS-TC-13,Pass,
+P6-StR2.1,P6-AC2.1,P6B-UR-01,Explicit visible failure-category text,CATEGORY_LABEL + CATEGORY_HELP; badges,Unit; System,UT-RUN-02; SYS-TC-02..07,Pass,
+P6-StR2.1,P6-AC2.1,P6B-UR-02,Status/results/errors/logs in UI not raw traffic,OutputPanel tabs; pop-out window,System; E2E,SYS-TC-09; SYS-TC-10; SYS-TC-11; SYS-TC-15; E2E-04,Pass,CR-P6B-04
+P6-StR2.1,P6-AC2.1,P6B-UR-03,Waveform access from current run/results workflow,OutputPanel Waveform + Surfer tabs; Surfer new window; pop-out,E2E; System,E2E-01; E2E-04; SYS-TC-11,Pass,CR-P6B-04
+P6-StR4.1,P6-AC4.1,P6B-IR-01,Consume shared workspace model,IF-P6-WS-01; WorkspaceSource,Integration,IT-SEAM-01,Pass,
+P6-StR3.1,P6-AC3.1,P6B-IR-02,Conform to HDL Service Contract v1 execution portions,contracts/hdlService; validateJobResult,Unit; Integration,UT-CON-01; IT-SVC-01..05,Pass,CR-P6B-01
+P6-StR3.1,P6-AC3.1,P6B-IR-03,Use REST/WebSocket client path,HttpTransport; HdlServiceClient.watch,Integration; Inspection,IT-SVC-02; UT-CLI-01; UT-CLI-02,Pass,
+P6-StR2.1,P6-AC2.1,P6B-IR-04,Integrate browser Surfer for VCD,SurferViewer; public/surfer,E2E,E2E-01,Pass,
+P6-StR2.2,P6-AC2.2,P6B-IR-05,Conform to Launch/Result Contract v1,contracts/launchResult,Unit,UT-CON-02; UT-CON-03,Pass,CR-P6B-01
+P6-StR2.2,P6-AC2.2,P6B-IR-06,Exchange contract fields with local harness,harness/main.tsx check(),E2E,E2E-03,Pass,
+P6-StR3.1,P6-AC3.1,P6B-IR-07,Simulator and fixtures substitute external dependencies,Transport port; EmbeddedTransport; simulator/server.ts,Integration; Unit,IT-SVC-*; UT-CLI-02,Pass,
+P6-StR2.1,P6-AC2.1,P6B-DC-01,React + TypeScript + Vite,package.json; vite.config.ts,Inspection,INSP-01,Pass,
+P6-StR3.1,P6-AC3.1,P6B-DC-02,REST/WebSocket client,service/transport.ts,Inspection,INSP-02,Pass,
+P6-StR2.1,P6-AC2.1,P6B-DC-03,Browser-based Surfer for VCD,public/surfer; SurferViewer,Inspection; E2E,INSP-03; E2E-01,Pass,
+P6-StR3.1,P6-AC3.1,P6B-DC-04,Use parent-project service simulator for independent testing,src/simulator; simulator/server.ts,Inspection; Integration,INSP-04; IT-SVC-*,Pass,
+P6-StR2.1,P6-AC2.1,P6B-DC-05,VHDL scope only,Fixtures + simulator are VHDL-only,Inspection,INSP-05,Pass,
+P6-StR2.1,P6-AC2.1,P6B-DC-06,No persistent cloud storage/accounts/public multi-user hosting as core,localStorage only for service URL preference; static site,Inspection,INSP-06,Pass,
+P6-StR4.1,P6-AC4.1,P6B-DC-07,Shared workspace model is the P6A integration interface,IF-P6-WS-01,Inspection; Integration,INSP-07; IT-SEAM-01,Pass,
+ECO-StR6.1,ECO-AC6.1,P6B-SA-01,External interactions behind named interfaces,WorkspaceSource; Transport; launch postMessage,Inspection; Integration,INSP-08; IT-SEAM-01; IT-SVC-*,Pass,
