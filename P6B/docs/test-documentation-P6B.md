@@ -13,7 +13,7 @@ ECNG 2007 Group 6, Subproject P6B · Version 1.1 · Informed by ISO/IEC/IEEE 291
 | Fixtures | `src/simulator/fixtures.ts` (HDL-01..08), `src/launch/examples.ts` (LTR-01..04). These are stand-ins for the staff fixtures (CR-P6B-02). |
 | Entry criteria | `npm run typecheck` passes. |
 | Exit criteria | All planned cases pass. Every P6B SRS requirement traces to at least one passing case (see RTM). No open severity-1 or severity-2 defects. |
-| How to run | `npm test` (unit, system, integration) · `npm run test:e2e` (builds, serves and runs Playwright) · CI runs both on every push (`.github/workflows/ci.yml`) |
+| How to run | `npm test` (unit, system, integration) · `npm run test:e2e` (builds, serves and runs Playwright) · CI runs typecheck, tests and build on every push (root `.github/workflows/ci.yml`, job `p6b`) |
 
 ## 2. System test cases (black box, from the SRS)
 
