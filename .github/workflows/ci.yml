@@ -20,6 +20,23 @@ jobs:
       - run: npx oxlint
       - run: npm run build
 
+  p6a:
+    name: P6A (P6A/)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: P6A
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # switch to `npm ci` once P6A/package-lock.json is committed
+      - run: npm install
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+
   p6b:
     name: P6B (P6B/)
     runs-on: ubuntu-latest
