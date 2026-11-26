@@ -13,6 +13,17 @@ import { SharedWorkspace, hasSharedWorkspace } from '../../../P6B/src/workspace/
 
 const tick = (ms = 20) => new Promise((r) => setTimeout(r, ms));
 
+/**
+ * BroadcastChannel delivery is asynchronous and its timing differs by OS
+ * (Windows timers tick about every 15 ms), so wait for the condition instead
+ * of a fixed delay. Gives up after `timeoutMs`; the assertion that follows
+ * then reports the real difference.
+ */
+async function until(cond: () => boolean, timeoutMs = 2000): Promise<void> {
+  const end = Date.now() + timeoutMs;
+  while (!cond() && Date.now() < end) await tick(10);
+}
+
 const cleanups: Array<() => void> = [];
 afterEach(() => {
   while (cleanups.length) cleanups.pop()!();
@@ -36,7 +47,7 @@ describe('IT-SEAM-02 P6A writes IF-P6-WS-01 (recording reader on BroadcastChanne
 
     // 1. read the initial snapshot
     reader.postMessage({ type: 'request-snapshot' });
-    await tick();
+    await until(() => recorded.length >= 1);
     expect(recorded.map((s) => s.revision)).toEqual([1]);
 
     // 2. type one character, 3. undo
@@ -44,12 +55,13 @@ describe('IT-SEAM-02 P6A writes IF-P6-WS-01 (recording reader on BroadcastChanne
     store.updateFile(COUNTER_PATH, original.replace('begin', 'begin '));
     store.updateFile(COUNTER_PATH, original);
     // 4. switching file tabs is view state only: nothing to publish
-    await tick();
+    await until(() => recorded.length >= 3);
+    await tick(50); // nothing further may arrive
     expect(recorded.map((s) => s.revision)).toEqual([1, 2, 3]);
 
     // 5. request-snapshot is answered with the current state
     reader.postMessage({ type: 'request-snapshot' });
-    await tick();
+    await until(() => recorded.length >= 4);
     const last = recorded.at(-1)!;
     expect(last.revision).toBe(3);
     expect(last.files.find((f) => f.path === COUNTER_PATH)!.content).toBe(original);
@@ -90,11 +102,11 @@ describe('P6A writer + real P6B SharedWorkspace reader', () => {
     const placeholder = { ...store.getSnapshot(), sessionId: 'p6b-fixture', revision: 1 };
     const p6b = new SharedWorkspace(placeholder, frameWin as unknown as Window);
     cleanups.push(() => p6b.dispose());
-    await tick();
+    await until(() => p6b.getSnapshot().sessionId === 'p6a-seam');
     expect(p6b.getSnapshot().sessionId).toBe('p6a-seam');
 
     store.updateFile(COUNTER_PATH, store.getFile(COUNTER_PATH)!.content + '\n');
-    await tick();
+    await until(() => p6b.getSnapshot().revision === 2);
     expect(p6b.getSnapshot().revision).toBe(2);
     expect(p6b.getSnapshot()).toEqual(store.getSnapshot());
   });
