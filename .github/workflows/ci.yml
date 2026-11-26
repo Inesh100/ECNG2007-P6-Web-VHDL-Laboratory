@@ -32,7 +32,8 @@ jobs:
         with:
           node-version: 22
       # switch to `npm ci` once P6A/package-lock.json is committed
-      - run: npm install
+      - name: npm install
+        run: npm install || { echo '--- npm debug log (tail) ---'; tail -n 80 ~/.npm/_logs/*-debug-0.log; exit 1; }
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
